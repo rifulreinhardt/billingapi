@@ -15,4 +15,4 @@ jobs:
       - name: Build the Docker image
         run: docker build . --file Dockerfile --tag my-image-name:${{ github.sha}}
       - name: push to docker registry
-        run: push rifulreinhardt/my-image-name:${{ github.sha }}
+        run: docker push rifulreinhardt/my-image-name:${{ github.sha }}
