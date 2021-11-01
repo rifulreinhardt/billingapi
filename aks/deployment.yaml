@@ -1,0 +1,85 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mvc-lb
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  selector:
+    app: mvc
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mvc-deployment
+  labels:
+    app: mvc
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mvc
+  template:
+    metadata:
+      labels:
+        app: mvc
+    spec:
+      containers:
+        - name: mvc
+          image: rifulreinhardt/mvc:v1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: billingapi-lb
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  selector:
+    app: billingapi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: billingapi-deployment
+  labels:
+    app: billingapi
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: billingapi
+  template:
+    metadata:
+      labels:
+        app: billingapi
+    spec:
+      containers:
+        - name: billingapi
+          image: rifulreinhardt/img-name
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-deployment
+  labels:
+    app: mongo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mongo
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      containers:
+        - name: mongo
+          image: mongo
