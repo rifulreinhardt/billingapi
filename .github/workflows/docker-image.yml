@@ -2,7 +2,7 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
     branches: [main]
 
@@ -21,6 +21,9 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: push to docker hub registry
         run: docker push ${{ secrets.DOCKER_HUB_REGISTRY_NAME }}/img-name:${{ github.sha }}
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: connect to aks cluster
         run: az aks get-credentials --resource-group ${{ secrets.AKS_RESOURCE_GROUP_NAME }} --name ${{ secrets.AKS_CLUSTER_NAME }}
       - name: apply deployment
