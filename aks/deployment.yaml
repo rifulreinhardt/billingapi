@@ -62,7 +62,7 @@ spec:
     spec:
       containers:
         - name: billingapi
-          image: rifulreinhardt/img-name
+          image: rifulreinhardt/img-name:15f960b363979da15c6936269c8938bb9359b229
 ---
 apiVersion: apps/v1
 kind: Deployment
